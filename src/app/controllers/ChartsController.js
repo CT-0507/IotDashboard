@@ -1,7 +1,8 @@
 class ChartsController {
     // GET /
     index(req, res, next) {
-        res.render('charts/show');
+        var tittle = 'Charts';
+        res.render('charts/show', { tittle });
     }
 }
 

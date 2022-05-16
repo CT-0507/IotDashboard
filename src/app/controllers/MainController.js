@@ -1,7 +1,8 @@
 class MainController {
     // GET /
     index(req, res, next) {
-        res.render('main/show');
+        var tittle = 'Main';
+        res.render('main/show', { tittle });
     }
 }
 

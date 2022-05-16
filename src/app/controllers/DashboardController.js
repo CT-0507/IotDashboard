@@ -1,7 +1,8 @@
 class DashboardController {
     // GET /
     index(req, res, next) {
-        res.render('dashboard/dashboard');
+        var tittle = 'Dashboard';
+        res.render('dashboard/dashboard', { tittle });
     }
 }
 

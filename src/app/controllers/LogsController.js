@@ -1,7 +1,8 @@
 class LogsController {
     // GET /
     index(req, res, next) {
-        res.render('Logs/show');
+        var tittle = 'Logs';
+        res.render('Logs/show', { tittle });
     }
 }
 
