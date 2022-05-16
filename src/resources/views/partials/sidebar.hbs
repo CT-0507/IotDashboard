@@ -1,0 +1,67 @@
+<div class="sidebar">
+    <div class="logo-details">
+    <i class='bx bxl-c-plus-plus icon'></i>
+        <div class="logo_name">IoT Dashboard</div>
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <a href="/dashboard">
+            <i class='bx bx-grid-alt'></i>
+            <span class="links_name">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
+        </li>
+        <li>
+        <a href="/main">
+            <i class='bx bx-user' ></i>
+            <span class="links_name">Main</span>
+        </a>
+        <span class="tooltip">Main</span>
+        </li>
+        <li>
+        <a href="/charts">
+            <i class='bx bx-chat' ></i>
+            <span class="links_name">Charts</span>
+        </a>
+        <span class="tooltip">Charts</span>
+        </li>
+        <li>
+        <a href="/logs">
+            <i class='bx bx-pie-chart-alt-2' ></i>
+            <span class="links_name">Logs</span>
+        </a>
+        <span class="tooltip">Logs</span>
+        </li>
+        <li>
+        <a href="#">
+            <i class='bx bx-cog' ></i>
+            <span class="links_name">Setting</span>
+        </a>
+        <span class="tooltip">Setting</span>
+        </li>
+    </ul>
+</div>
+<script>
+let sidebar = document.querySelector(".sidebar");
+let closeBtn = document.querySelector("#btn");
+let searchBtn = document.querySelector(".bx-search");
+let col = document.querySelector('#dashboard')
+console.log(col)
+closeBtn.addEventListener("click", ()=>{
+    
+    sidebar.classList.toggle("open");
+    menuBtnChange();//calling the function(optional)
+});
+
+// following are the code to change sidebar button(optional)
+function menuBtnChange() {
+if(sidebar.classList.contains("open")){
+    col.classList.add("col-sm-2")
+    closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+}else {
+    col.classList.remove("col-sm-2")
+    closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+}
+}
+</script>
