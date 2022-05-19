@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const DHT = require('../../models/dht.js');
 const BH = require('../../models/bh.js');
-const Device = require('../../../../../src/models/devices.js');
+const Device = require('../../models/devices.js');
 class UpdateController {
     // GET
 
