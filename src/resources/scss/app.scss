@@ -284,6 +284,20 @@
 .logs-table {
     border-radius: 10px;
 }
+.chart-table {
+    height: 300px;
+    width: 300px;
+}
+.chart-container {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    /* top: -150px; */
+    z-index: 3;
+    background-color: rgb(77, 122, 206);
+    padding: 10px;
+    border-radius: 5%;
+}
 @media (max-width: 420px) {
     .sidebar li .tooltip {
         display: none;

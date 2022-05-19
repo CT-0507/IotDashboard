@@ -10,19 +10,17 @@ const mongoose = require('mongoose');
 const dbURI =
     'mongodb+srv://hackblack86:123@demo.gxocm.mongodb.net/Lab4?retryWrites=true&w=majority';
 // const host = '172.31.250.62'
-mongoose
-    .connect(dbURI)
-    .then(() => {
-        console.log('Connect to db.');
-        app.listen(port, () => {
-            console.log(`App listening on port ${port}`);
+async function connect() {
+    try {
+        await mongoose.connect(dbURI, {
+            //useCreateIndex: true,
         });
-    })
-    .catch((err) => {
-        console.log(`Can't connect to db.`);
-        console.log(err);
-    });
-
+        console.log('Connect successfully');
+    } catch (error) {
+        console.log('Failed to connect');
+    }
+}
+connect();
 // use urlencoded
 app.use(
     express.urlencoded({
@@ -55,3 +53,6 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 route(app);
 
 // Start listening
+app.listen(port, () => {
+    console.log(`App listening on port ${port}`);
+});
