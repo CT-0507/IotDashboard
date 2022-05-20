@@ -6,6 +6,7 @@ const logsController = require('../app/controllers/LogsController');
 // newsController.index()
 
 //router.get('/:slug', logsController.show);
-router.get('/', logsController.index);
+router.get('/', logsController.show);
+router.get('/:page', logsController.show);
 
 module.exports = router;

@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const DHT = require('../../models/dht.js');
 const BH = require('../../models/bh.js');
 const Device = require('../../models/devices.js');
+const Log = require('../../models/log.js');
+const {
+    mongooseToObject,
+    multipleMongooseToObject,
+} = require('../../util/mongoose');
 class UpdateController {
     // GET
 
@@ -25,7 +30,7 @@ class UpdateController {
                 res.status(400).send(`Fail to update`);
             });
     }
-    updateDht(req, res, next) {
+    async updateDht(req, res, next) {
         const data = new DHT({
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
@@ -35,18 +40,55 @@ class UpdateController {
         });
         data.save()
             .then((result) => {
-                console.log(result);
+                //console.log(result);
                 // console.log(result._id.toString())
-                res.status(200).send(result._id.toString());
+                //res.status(200).send(result._id.toString());
             })
             .catch((err) => {
                 console.log(err);
                 res.status(400).send(`Fail to update`);
+                return;
+            });
+        // Lấy dữ liệu từ database
+        const devicesInfo = await Device.findOne({ _id: req.body.attachTo });
+        var deviceName = devicesInfo.name;
+        const log1 = new Log({
+            _id: new mongoose.Types.ObjectId(),
+            deviceId: req.body.attachTo,
+            ip: req.body.ip,
+            name: deviceName,
+            sensor: 'Nhiệt độ',
+            value: parseInt(req.body.temp),
+        });
+        log1.save()
+            .then(() => {
+                console.log(log1);
+                //res.send(log)
+            })
+            .catch(() => {
+                res.send('Failed to create');
+                return;
+            });
+        const log2 = new Log({
+            _id: new mongoose.Types.ObjectId(),
+            deviceId: req.body.attachTo,
+            ip: req.body.ip,
+            name: deviceName,
+            sensor: 'Độ ẩm',
+            value: parseInt(req.body.humi),
+        });
+        log2.save()
+            .then(() => {
+                res.status(200).send('Ok');
+            })
+            .catch(() => {
+                res.send('Failed to create');
             });
     }
-    updateBh(req, res, next) {
+    async updateBh(req, res, next) {
         const data = new BH({
             _id: new mongoose.Types.ObjectId(),
+
             name: req.body.name,
             lux: req.body.lux,
             attachTo: req.body.attachTo,
@@ -62,14 +104,40 @@ class UpdateController {
                 console.log(err);
                 //res.status(400).send(`Fail to update`)
             });
-        const device = new Device({
-            _id: req.body.attachTo,
-            name: 'Raspberry Pi',
-            imgUrl: 'https://raspberrypi.vn/wp-content/uploads/2018/05/RaspberryPi-3-Model-B-Plus-coverfb.png',
+        const devicesInfo = await Device.findOne({ _id: req.body.attachTo });
+        var deviceName = devicesInfo.name;
+        const log = new Log({
+            _id: new mongoose.Types.ObjectId(),
+            deviceId: req.body.attachTo,
+            ip: req.body.ip,
+            name: deviceName,
+            sensor: ' Độ sáng',
+            value: req.body.lux,
         });
-        Device.updateOne({ _id })
-            .then(() => res.status(200).send('Ok'))
-            .catch(next);
+        log.save()
+            .then(() => {
+                res.send(log);
+            })
+            .catch(() => {
+                res.send('Failed to create');
+            });
+    }
+    loging(req, res, next) {
+        const log = new Log({
+            _id: new mongoose.Types.ObjectId(),
+            deviceId: req.body.attachTo,
+            ip: req.body.ip,
+            name: req.body.name,
+            sensor: req.body.sensor,
+            value: req.body.value,
+        });
+        log.save()
+            .then(() => {
+                res.send(log);
+            })
+            .catch(() => {
+                res.send('Failed to create');
+            });
     }
 }
 

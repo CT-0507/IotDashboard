@@ -15,6 +15,7 @@ Code vẫn chưa hoàn chỉnh, nên tách các chức năng thành 1 file contr
         "imgUrl":"wemos.jpg"
     }
 */
+router.post('/log', updateController.loging);
 router.post('/dht', updateController.updateDht);
 router.post('/bh', updateController.updateBh);
 router.post('/device', updateController.addDevice);

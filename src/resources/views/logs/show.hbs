@@ -1,4 +1,4 @@
-<div class="container-fluid bg-dark logs-table">
+<div class="container-fluid bg-gray logs-table">
     <div>
         <h3>My courses</h3>
         {{#if deletedCount}}
@@ -24,36 +24,86 @@
     <div class="row">
         <h3></h3>
     </div>
-    <div class="row">
+    <div class="row" style="height:400px">
         <table class="table">
-    <thead>
-        <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        </tr>
-        <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        </tr>
-        <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        </tr>
-    </tbody>
-</table>
+            <thead>
+                <tr>
+                <th scope="col">ID thiết bị</th>
+                <th scope="col">Ip</th>
+                <th scope="col">Tên thiết bị</th>
+                <th scope="col">Cảm biến</th>
+                <th scope="col">Giá trị</th>
+                <th scope="col">Ngày</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each logsObject}}
+                <tr>
+                <th scope="row">{{deviceId}}</th>
+                <td>{{ip}}</td>
+                <td>{{name}}</td>
+                <td>{{sensor}}</td>
+                <td>{{value}}</td>
+                <td>{{createdAt}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div class="row justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" id="btn-previous"><a class="page-link" href="/logs/{{{sum current -1}}}">Previous</a></li>
+                <li class="page-item" id="btn-1"><a class="page-link" href="/logs/1">1</a></li>
+                <p id="more" style="margin: 0 4px">    ...    </p>
+                <li class="page-item" id="btn-first"><a class="page-link" href="/logs/{{current}}">{{{current}}}</a></li>
+                <li class="page-item"><a class="page-link" id="btn-next-2" href="/logs/{{{sum current 1}}}">{{{sum current 1}}}</a></li>
+                <li class="page-item"><a class="page-link" id="btn-next-3" href="/logs/{{{sum current 2}}}">{{{sum current 2}}}</a></li>
+                <p id="more-to-last" style="margin: 0 4px">    ...    </p>
+                <li class="page-item" id="btn-last"><a class="page-link" href="/logs/{{pages}}">{{pages}}</a></li>
+                <li class="page-item" id="btn-next"><a class="page-link" href="/logs/{{{sum current 1}}}">Next</a></li>
+            </ul>
+        </nav>
     </div>
 </div>
+<script>
+    var btnPrevious = document.getElementById('btn-previous')
+    var btnFirst = document.getElementById('btn-first')
+    var btnNext = document.getElementById('btn-next')
+    var btnNext2 = document.getElementById('btn-next-2')
+    var btnNext3 = document.getElementById('btn-next-3')
+    var btn1 = document.getElementById('btn-1')
+    var btnLast = document.getElementById('btn-last')
+    var pMore = document.getElementById('more')
+    var pMoreLast = document.getElementById('more-to-last')
+    console.log(btnNext)
+    console.log(btnPrevious)
+    if ({{{current}}} === 1) {
+        btnPrevious.classList.add('disabled')
+        btnFirst.classList.add('disabled')
+        btn1.style.display = "none"
+        pMore.style.display = "none"
+    }
+    else {
+
+        btnPrevious.classList.remove('disabled')
+        btnFirst.classList.remove('disabled')
+    }
+    if({{{current}}} === {{{pages}}}) {
+        btnNext.classList.add('disabled')
+        btnLast.classList.add('disabled')
+        btnLast.style.display = "none"
+        pMoreLast.style.display = "none"
+    }
+    else {
+        btnLast.classList.remove('disabled')
+        btnNext.classList.remove('disabled')
+    }
+    if (!({{{pages}}} - {{{current}}} > 1)) {
+        btnNext2.style.display = "none"
+    }
+    if (!({{{pages}}} - {{{current}}} > 2)) {
+        btnNext3.style.display = "none"
+    }
+    
+</script>

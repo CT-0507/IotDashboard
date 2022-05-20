@@ -7,6 +7,7 @@ const path = require('path');
 const port = 3000;
 const route = require('./routes');
 const mongoose = require('mongoose');
+
 const dbURI =
     'mongodb+srv://hackblack86:123@demo.gxocm.mongodb.net/Lab4?retryWrites=true&w=majority';
 // const host = '172.31.250.62'
@@ -41,7 +42,13 @@ app.engine(
     handlebars.engine({
         extname: '.hbs',
         helpers: {
-            sum: (a, b) => a + b,
+            checkCurrent: (a) => {
+                if (a == 1) return true;
+            },
+            sum: function (a, b) {
+                var c = parseInt(a) + parseInt(b);
+                return c;
+            },
         },
     }),
 );
