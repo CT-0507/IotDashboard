@@ -27,7 +27,7 @@
 
                             <p class="card-text">Độ ẩm</p>
                             <span class="badge badge-success">Success</span>
-                               <p class="card-text">{{data.humi}}&#37;</p>
+                                <p class="card-text">{{data.humi}}&#37;</p>
                         </div>
                         <img class="card-img-top col-4 p-2" src="https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_44-128.png" alt="Card image cap">
                     </div>
@@ -39,10 +39,9 @@
                     <div class="container-fluid">
                         <div class="row justify-content-md-center">
                         <div class="card-body col-8 col">
-
                             <p class="card-text">Ánh sáng</p>
                             <span class="badge badge-success">Success</span>
-                               <p class="card-text">{{data.lux}}</p>
+                                <p class="card-text">{{data.lux}}</p>
                         </div>
                         <img class="card-img-top col-4 p-2" src="https://cdn4.iconfinder.com/data/icons/bold-purple-free-samples/32/Torch_Light_Flashlight_Flash_Brightness-128.png" alt="Card image cap">
                     </div>
@@ -56,11 +55,19 @@
                         <p class="card-text">Các thiết bị</p>
                     </div>
                     <div class="row">
-                        <div class="col col-5">
-                            Led 1
+                        <div class="col col-5 d-flex">
+                            <p class= "mr-5">Led 1</p>
+                            <label class="switch">
+                                <input type="checkbox" id="led1">
+                                <span class="slider round"></span>
+                            </label>
                         </div>
-                        <div class="col col-5">
-                            Led 2
+                        <div class="col col-5 d-flex">
+                            <p class= "mr-5">Led 2</p>
+                            <label class="switch">
+                                <input type="checkbox" id="led2">
+                                <span class="slider round"></span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -68,3 +75,103 @@
         
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $("input[type=checkbox]#led1").change(function(){
+            console.log(this)
+            if ( this.checked ){
+                fetch('http://localhost:3000/leds/led1', {
+                // Adding method type
+                method: "POST",
+                
+                // Adding body or contents to send
+                body: JSON.stringify({
+                    "led1": "on"
+                }),
+                
+                // Adding headers to the request
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+                .then(response => response.json())
+                
+                // Displaying results to console
+                .then(json => console.log(json));
+            
+            }
+            else {
+                fetch('http://localhost:3000/leds/led1', {
+                // Adding method type
+                    method: "POST",
+                    
+                    // Adding body or contents to send
+                    body: JSON.stringify({
+                        "led1": "off"
+                    }),
+                    
+                    // Adding headers to the request
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                })
+                .then(response => response.json())
+                
+                // Displaying results to console
+                .then(json => console.log(json));
+            }
+            //or
+            if ( $(this).prop("checked") ){}   
+            //or
+            if ( $(this).is(":checked") ){}
+        });
+        $("input[type=checkbox]#led2").change(function(){
+            console.log(this)
+            if ( this.checked ){
+                fetch('http://localhost:3000/leds/led2', {
+                // Adding method type
+                method: "POST",
+                
+                // Adding body or contents to send
+                body: JSON.stringify({
+                    "led2": "on"
+                }),
+                
+                // Adding headers to the request
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+                .then(response => response.json())
+                
+                // Displaying results to console
+                .then(json => console.log(json));
+            
+            }
+            else {
+                fetch('http://localhost:3000/leds/led2', {
+                // Adding method type
+                    method: "POST",
+                    
+                    // Adding body or contents to send
+                    body: JSON.stringify({
+                        "led2": "off"
+                    }),
+                    
+                    // Adding headers to the request
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                })
+                .then(response => response.json())
+                
+                // Displaying results to console
+                .then(json => console.log(json));
+            }
+            //or
+            if ( $(this).prop("checked") ){}   
+            //or
+            if ( $(this).is(":checked") ){}
+        });
+    })
+</script>
