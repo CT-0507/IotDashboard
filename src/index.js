@@ -32,7 +32,6 @@ app.use(
 app.use(express.json());
 // public file can be view via url
 app.use(express.static(path.join(__dirname, 'public')));
-console.log(path.join(__dirname, 'public'));
 app.use(morgan('combined'));
 
 //Template engine
