@@ -24,23 +24,31 @@ class LoginController {
         //         res.send('incorrect')
         //     })
         User.findOne({ username: req.body.username }, function(err, user) {
-            if (err) throw err;
-             
+            if (err) {throw 'wrong';}
+            try {
+                user.comparePassword(req.body.password, function(err, isMatch) {
+                    if (err) {res.send(err);throw err; }
+                    console.log(req.body.password, isMatch);
+                    if(isMatch)  {
+                        res.send(user)
+                    }
+                    else {
+                        res.send("incorrect")
+                    }
+                     // -&gt; Password123: true
+                });
+            } catch {}
             // test a matching password
-            user.comparePassword(req.body.password, function(err, isMatch) {
-                if (err) {res.send(err);throw err; }
-                console.log(req.body.password, isMatch);
-                if(isMatch)  {
-                    res.send(user)
-                }
-                else {
-                    res.send("incorrect")
-                }
-                 // -&gt; Password123: true
-            });
+            
              
             // test a failing password
-        });
+        })
+            .then(() => {
+                
+            })
+            .catch(() => {
+                res.send('wrong username')
+            });
     }
         // User.findOne({ username: req.body.username }, function(err, user) {
         //     if (err) throw err;
