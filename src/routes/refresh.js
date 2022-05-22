@@ -4,7 +4,7 @@ const Device = require('../models/devices')
 const Router = express.Router()
 
 // https://stackoverflow.com/questions/31549857/mongoose-what-does-the-exec-function-do
-
+// https://mongoosejs.com/docs/timestamps.html
 
 
 Router.patch('/device', (req, res) =>{
@@ -18,7 +18,7 @@ Router.patch('/device', (req, res) =>{
     // Code này sẽ chạy bất đồng bộ
     // {new: true}, trả về document SAU khi đã update dữ liệu,
     // {new: false}, trả về document TRC khi đã update dữ liệu, nghĩa là t thấy bản cũ của document
-    Device.findOneAndUpdate(filter, {},{new: true})
+    Device.findOneAndUpdate(filter, {updatedAt: () => Date.now()},{new: true})
     .then(result => {
         console.log(result) // hiện thị document
         res.status(200).send(result)

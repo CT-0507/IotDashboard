@@ -8,20 +8,31 @@ const port = 3000;
 const route = require('./routes');
 const mongoose = require('mongoose');
 
-const dbURI =
-    'mongodb+srv://hackblack86:123@demo.gxocm.mongodb.net/Lab4?retryWrites=true&w=majority';
-// const host = '172.31.250.62'
+const dbURI = 'mongodb+srv://hackblack86:123@demo.gxocm.mongodb.net/Lab4?retryWrites=true&w=majority';
+
+
+const host = '192.168.0.111'; // đổi thành IP của máy 
+
 async function connect() {
     try {
-        await mongoose.connect(dbURI, {
-            //useCreateIndex: true,
+        await mongoose.connect(dbURI, () => {
+            console.log('Connect to database.');
         });
-        console.log('Connect successfully');
     } catch (error) {
         console.log('Failed to connect');
     }
 }
+
 connect();
+
+// cần có cái này để gửi request đến mạng local, ví dụ: 192.168.0.111:3000/update
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+ })
+
+
 // use urlencoded
 app.use(
     express.urlencoded({
@@ -58,7 +69,7 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 // connect to route file
 route(app);
 
-// Start listening
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
+// Start listening 
+app.listen(port, host, () => {
+    console.log(`App listening on ${host}:${port}...`);
 });

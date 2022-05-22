@@ -10,26 +10,32 @@ const {
 class UpdateController {
     // GET
 
+    // API update thiết bị
     async addDevice(req, res, next) {
+        console.log('Your device register request data: ')
         const data = new Device({
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
             imgUrl: req.body.imgUrl,
         });
         console.log(data);
+
         data.save()
             .then((result) => {
+                console.log(`Server sendback data: `)
                 console.log(result);
-                console.log(result._id.toString());
                 // send this
                 res.status(200).send(result._id.toString());
                 // res.status(200).json(result)
             })
             .catch((err) => {
+                console.log('UpdateController: ')
                 console.log(err);
                 res.status(400).send(`Fail to update`);
             });
     }
+
+
     async updateDht(req, res, next) {
         const data = new DHT({
             _id: new mongoose.Types.ObjectId(),
@@ -38,17 +44,23 @@ class UpdateController {
             humi: req.body.humi,
             attachTo: req.body.attachTo,
         });
-        data.save()
+
+        // Thêm await
+        await data.save()
             .then((result) => {
-                //console.log(result);
+                // console.log(result);
                 // console.log(result._id.toString())
-                //res.status(200).send(result._id.toString());
+                // res.status(200).send(result._id.toString());
+                console.log('Thêm dữ liệu vào database từ dht.')
             })
             .catch((err) => {
                 console.log(err);
                 res.status(400).send(`Fail to update`);
                 return;
             });
+
+      
+            
         // Lấy dữ liệu từ database
         const devicesInfo = await Device.findOne({ _id: req.body.attachTo });
         var deviceName = devicesInfo.name;
@@ -60,7 +72,9 @@ class UpdateController {
             sensor: 'Nhiệt độ',
             value: parseInt(req.body.temp),
         });
-        log1.save()
+        
+        // Thêm await
+        await log1.save()
             .then(() => {
                 console.log(log1);
                 //res.send(log)
@@ -69,6 +83,7 @@ class UpdateController {
                 res.send('Failed to create');
                 return;
             });
+            
         const log2 = new Log({
             _id: new mongoose.Types.ObjectId(),
             deviceId: req.body.attachTo,
@@ -77,7 +92,9 @@ class UpdateController {
             sensor: 'Độ ẩm',
             value: parseInt(req.body.humi),
         });
-        log2.save()
+
+        // thêm await
+        await log2.save()
             .then(() => {
                 res.status(200).send('Ok');
             })
@@ -85,6 +102,8 @@ class UpdateController {
                 res.send('Failed to create');
             });
     }
+
+
     async updateBh(req, res, next) {
         const data = new BH({
             _id: new mongoose.Types.ObjectId(),

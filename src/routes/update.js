@@ -3,21 +3,10 @@ const router = express.Router();
 
 const updateController = require('../app/controllers/UpdateController');
 
-/*
-Code vẫn chưa hoàn chỉnh, nên tách các chức năng thành 1 file controller riêng
 
-*/
-
-// http://192.168.0.12:3000/update/device
-/*
-    {
-        "name": "wemos",
-        "imgUrl":"wemos.jpg"
-    }
-*/
-router.post('/log', updateController.loging);
-router.post('/dht', updateController.updateDht);
-router.post('/bh', updateController.updateBh);
-router.post('/device', updateController.addDevice);
+router.post('/log', updateController.loging); // POST update/log
+router.post('/dht', updateController.updateDht); // POST update/dht
+router.post('/bh', updateController.updateBh); // POST update/bh
+router.post('/device', updateController.addDevice); // POST update/device
 
 module.exports = router;
