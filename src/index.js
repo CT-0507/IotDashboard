@@ -7,6 +7,7 @@ const path = require('path');
 const port = 3000;
 const route = require('./routes');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 
 const dbURI =
     'mongodb+srv://hackblack86:123@demo.gxocm.mongodb.net/Lab4?retryWrites=true&w=majority';
@@ -21,6 +22,7 @@ async function connect() {
         console.log('Failed to connect');
     }
 }
+app.use(methodOverride('_method'));
 connect();
 // use urlencoded
 app.use(
