@@ -1,0 +1,2 @@
+- Trong index.js đổi ip của biến host thành ip của máy mình
+- Trong /src/app/controllers/MainController.js đổi thành ip máy mình khi RENDER trang web

@@ -11,19 +11,30 @@ const methodOverride = require('method-override');
 
 const dbURI =
     'mongodb+srv://hackblack86:123@demo.gxocm.mongodb.net/Lab4?retryWrites=true&w=majority';
-// const host = '172.31.250.62'
-async function connect() {
+
+const host = '172.31.250.62'; // đổi thành IP của máy 
+
+    async function connect() {
     try {
+        console.log('Trying connect to database...')
         await mongoose.connect(dbURI, {
             //useCreateIndex: true,
         });
-        console.log('Connect successfully');
+        console.log('successfully');
     } catch (error) {
         console.log('Failed to connect');
     }
 }
 app.use(methodOverride('_method'));
 connect();
+
+// cần có cái này để gửi request đến mạng local, ví dụ: 192.168.0.111:3000/update
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+ })
+
 // use urlencoded
 app.use(
     express.urlencoded({
@@ -61,6 +72,8 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 route(app);
 
 // Start listening
-app.listen(port, () => {
+app.listen(port,host, () => {
     console.log(`App listening on port ${port}`);
 });
+
+module.exports = host

@@ -76,102 +76,155 @@
     </div>
 </div>
 <script>
+    const host = '{{{host}}}'
+    const url = `http://${host}:3000/leds`
+    const sendingLeds = (url, data) => {
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({data}),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+        .then(response => response.json())
+        .then(json => console.log(json))
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         $("input[type=checkbox]#led1").change(function(){
             console.log(this)
             if ( this.checked ){
-                fetch('http://localhost:3000/leds/led1', {
+                const data = {led1:"on"}
+
+                var isChecked = $("input[type=checkbox]#led2").is(":checked")
+                if(isChecked){
+                    data.led2 = "on"
+                } else {
+                    data.led2 = "off"
+                }
+                sendingLeds(url, data)
+
+
+                //fetch('http://localhost:3000/leds/led1', {
                 // Adding method type
-                method: "POST",
-                
+                //method: "POST",
+
                 // Adding body or contents to send
-                body: JSON.stringify({
-                    "led1": "on"
-                }),
+                //body: JSON.stringify({
+                //    "led1": "on"
+                //}),
                 
                 // Adding headers to the request
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            })
-                .then(response => response.json())
+                //headers: {
+                  //  "Content-type": "application/json; charset=UTF-8"
+                //}
+                //})
+                //.then(response => response.json())
+                //.then(json => console.log(json)); 
                 
-                // Displaying results to console
-                .then(json => console.log(json));
+                 // Displaying results to console
             
-            }
-            else {
-                fetch('http://localhost:3000/leds/led1', {
+            } else {
+                const data = {led1:"off"}
+                var isChecked = $("input[type=checkbox]#led2").is(":checked")
+                if(isChecked){
+                    data.led2 = "on"
+                } else {
+                    data.led2 = "off"
+                }
+                sendingLeds(url, data)
+
+
+               // fetch('http://localhost:3000/leds/led1', {
                 // Adding method type
-                    method: "POST",
+                //    method: "POST",
                     
                     // Adding body or contents to send
-                    body: JSON.stringify({
-                        "led1": "off"
-                    }),
+                 //   body: JSON.stringify({
+                   //     "led1": "off"
+                    //}),
                     
                     // Adding headers to the request
-                    headers: {
-                        "Content-type": "application/json; charset=UTF-8"
-                    }
-                })
-                .then(response => response.json())
+                 //   headers: {
+                 //       "Content-type": "application/json; charset=UTF-8"
+                  //  }
+                   // })
+                    //.then(response => response.json()) 
+                    // Displaying results to console
+                    //.then(json => console.log(json));
+                }
                 
-                // Displaying results to console
-                .then(json => console.log(json));
-            }
+            // don't know what it does
+            // if ( $(this).prop("checked") ){}   
             //or
-            if ( $(this).prop("checked") ){}   
-            //or
-            if ( $(this).is(":checked") ){}
+            // if ( $(this).is(":checked") ){}
         });
+
         $("input[type=checkbox]#led2").change(function(){
             console.log(this)
             if ( this.checked ){
-                fetch('http://localhost:3000/leds/led2', {
+                const data = {}
+                let isChecked = $("input[type=checkbox]#led1").is(":checked")
+                if(isChecked){
+                    data.led1 = "on"
+                } else {
+                    data.led1 = "off"
+                }
+                data.led2 = 'on'
+                sendingLeds(url, data)
+
+              //  fetch('http://localhost:3000/leds/led2', {
                 // Adding method type
-                method: "POST",
+               // method: "POST",
                 
                 // Adding body or contents to send
-                body: JSON.stringify({
-                    "led2": "on"
-                }),
+               // body: JSON.stringify({
+                  //  "led2": "on"
+                //}),
                 
                 // Adding headers to the request
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            })
-                .then(response => response.json())
+             //   headers: {
+               //     "Content-type": "application/json; charset=UTF-8"
+                //}
+            //})
+                //.then(response => response.json())
                 
                 // Displaying results to console
-                .then(json => console.log(json));
+                //.then(json => console.log(json));
             
             }
             else {
-                fetch('http://localhost:3000/leds/led2', {
+                const data = {}
+                let isChecked = $("input[type=checkbox]#led1").is(":checked")
+                if(isChecked){
+                    data.led1 = "on"
+                } else {
+                    data.led1 = "off"
+                }
+                data.led2 = 'off'
+               sendingLeds(url, data)
+
+                //fetch('http://localhost:3000/leds/led2', {
                 // Adding method type
-                    method: "POST",
+                 //   method: "POST",
                     
                     // Adding body or contents to send
-                    body: JSON.stringify({
-                        "led2": "off"
-                    }),
+                   // body: JSON.stringify({
+                    //    "led2": "off"
+                    //}),
                     
                     // Adding headers to the request
-                    headers: {
-                        "Content-type": "application/json; charset=UTF-8"
-                    }
-                })
-                .then(response => response.json())
+                    //headers: {
+                      //  "Content-type": "application/json; charset=UTF-8"
+                    //}
+                //})
+               // .then(response => response.json())
                 
                 // Displaying results to console
-                .then(json => console.log(json));
+                //.then(json => console.log(json));
             }
+            // don't know what it doest
+            //if ( $(this).prop("checked") ){}   
             //or
-            if ( $(this).prop("checked") ){}   
-            //or
-            if ( $(this).is(":checked") ){}
+            //if ( $(this).is(":checked") ){}
         });
     })
 </script>

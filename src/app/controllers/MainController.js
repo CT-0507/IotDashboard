@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const DHT = require('../../models/dht.js');
 const BH = require('../../models/bh.js');
+const host = require('../../index')
 class MainController {
     // GET
 
@@ -15,7 +16,8 @@ class MainController {
         };
         console.log(data);
         var title = 'Main';
-        res.render('main/show', { data: data, title: title });
+        console.log(host);
+        res.render('main/show', { data: data, title: title, host: '172.31.250.62' });
     }
 }
 

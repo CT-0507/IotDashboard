@@ -8,6 +8,7 @@ const ledsRouter = require('./leds.js');
 const loginRouter = require('./login.js');
 const signUpRouter = require('./sign-up.js');
 
+
 function route(app) {
     app.use('/dashboard', dashboardRouter);
     app.use('/main', mainRouter);
@@ -18,7 +19,9 @@ function route(app) {
     app.use('/login', loginRouter);
     app.use('/sign-up', signUpRouter);
     app.use('/leds', ledsRouter);
+    
     app.use('/', dashboardRouter);
+    
 }
 
 module.exports = route;
