@@ -6,13 +6,13 @@
             </div>
         </div>
         <div class="col-5">
-            <div class="chart-container" style="width:400px;height:300px;background-color: rgba(21, 93, 226, 0.9);">
+            <div class="chart-container" style="width:400px;height:300px;background-color: rgba(234, 238, 237, 0.9);">
                 <canvas id="humiChart" width="400" height="300"></canvas>
             </div>
         </div>
     </div>
     <div class="row mt-4 justify-content-center">
-        <div class="chart-container" style="width:600px;height:250px;background-color: rgba(3, 238, 168, 0.9);">
+        <div class="chart-container" style="width:600px;height:250px;background-color: rgba(234, 238, 237, 0.9);">
             <canvas id="luxChart" width="600" height="250"></canvas>
         </div>
     </div>
@@ -33,7 +33,7 @@ var chartData = {
 
 document.addEventListener('DOMContentLoaded', function() {
   function getData() {
-    const url = 'http://localhost:3000/charts/get-data';
+    const url = 'http://{{{host}}}:3000/charts/get-data';
     fetch(url)
     .then((response) => {
       return response.json();
@@ -51,7 +51,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             datasets: [{
               label: 'Temperature',
-              data: []              // empty at the beginning
+              data: [],              // empty at the beginning
+              backgroundColor: 'rgba(249, 217, 35, 1)',
             }]
           },
           options: {
@@ -91,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         datasets: [{
         label: 'Humidity',
         data: [],
+        backgroundColor: 'rgba(33, 85, 205, 1)',
         borderWidth: 0.3,             // empty at the beginning
         }],
     },
@@ -131,8 +133,11 @@ document.addEventListener('DOMContentLoaded', function() {
         datasets: [{
         label: 'Light',
         data: [],
+        pointBackgroundColor: '#00FF00',
         borderWidth: 0.3,             // empty at the beginning
         }],
+
+
     },
     options: {
         scales: {

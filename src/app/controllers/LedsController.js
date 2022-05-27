@@ -1,7 +1,7 @@
 const mqtt  = require('mqtt')
 
 // địa chỉ của broker
-const url = 'mqtt:172.31.251.117'
+const url = 'mqtt:172.31.250.16'
 const topic = 'leds' 
 
 // topic của broker
@@ -36,6 +36,7 @@ class LedsController {
 
     }
 
+    // Không dùng đóng dưới đây
     led1(req, res, next) {
         if(req.body ==   undefined){
             console.log('POST leds/led1 ERROR undefiend body')

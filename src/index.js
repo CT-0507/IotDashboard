@@ -12,7 +12,7 @@ const methodOverride = require('method-override');
 const dbURI =
     'mongodb+srv://hackblack86:123@demo.gxocm.mongodb.net/Lab4?retryWrites=true&w=majority';
 
-const host = '172.31.250.62'; // đổi thành IP của máy 
+const host = '192.168.0.104'; // đổi thành IP của máy 
 
     async function connect() {
     try {

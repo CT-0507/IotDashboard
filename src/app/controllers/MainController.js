@@ -7,8 +7,9 @@ class MainController {
 
     async index(req, res, next) {
         const dht = await DHT.findOne().sort({ createdAt: -1 });
-        const bh = await BH.findOne().sort({ createddAt: -1 });
+        const bh = await BH.findOne().sort({ createdAt: -1 });
         console.log(dht);
+        console.log(bh);
         let data = {
             temp: dht.temp,
             humi: dht.humi,

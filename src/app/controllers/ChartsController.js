@@ -6,7 +6,7 @@ var { Chart } = require('chart.js');
 var ChartStreaming = require('chartjs-plugin-streaming');
 
 Chart.register(ChartStreaming);
-
+const host = '192.168.0.104'
 class ChartsController {
     // GET /
     async index(req, res, next) {
@@ -18,7 +18,7 @@ class ChartsController {
             humi: dht.humi,
             lux: bh.lux,
         };
-        res.render('charts/show', { data: data, title: title });
+        res.render('charts/show', { data: data, title: title, host: host });
     }
     async getdata(req, res, next) {
         const dht = await DHT.findOne().sort({ createdAt: -1 });

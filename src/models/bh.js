@@ -25,5 +25,5 @@ const bhSchema = new Schema(
     },
 );
 
-const BH = new mongoose.model('bh', bhSchema);
+const BH = mongoose.model('bh', bhSchema);
 module.exports = BH;

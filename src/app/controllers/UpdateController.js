@@ -88,7 +88,6 @@ class UpdateController {
     async updateBh(req, res, next) {
         const data = new BH({
             _id: new mongoose.Types.ObjectId(),
-
             name: req.body.name,
             lux: req.body.lux,
             attachTo: req.body.attachTo,
